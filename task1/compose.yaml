@@ -1,10 +1,12 @@
 services:
   worker1:
     build: ./worker
+  worker2:
+    build: ./worker
   manager:
     build: ./manager
     environment:
-      - NUM_WORKERS=1
+      - NUM_WORKERS=2
       - TIMEOUT_HALF_MIL=15000
     ports:
       - "8080:8080"

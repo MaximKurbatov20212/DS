@@ -79,7 +79,7 @@ public class CrackRequestService implements ICrackRequestService {
     try {
       RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
 
-      String addr = "http://localhost:8080/internal/api/manager/hash/crack/request";
+      String addr = "http://manager:8080/internal/api/manager/hash/crack/request";
 
       PatchRequestResponseDto body = new PatchRequestResponseDto(cr.getId(), cr.getResult());
 

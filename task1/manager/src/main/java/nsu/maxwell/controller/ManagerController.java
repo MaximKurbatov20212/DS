@@ -58,7 +58,7 @@ public class ManagerController {
 
     for (int i = 1; i <= numWorkers; i++) {
 
-      String addr = "http://localhost:8081/internal/api/worker/hash/crack/task";
+      String addr = "http://worker" + i + ":8080/internal/api/worker/hash/crack/task";
 
       CrackRequestDto body = new CrackRequestDto(crackRequest, i, numWorkers);
 
