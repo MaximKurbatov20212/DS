@@ -74,4 +74,4 @@ curl --location 'http://localhost:8080/api/hash/status?requestId=661611f7b1cfcd2
 
 # Схема 
 
-![schema](https://github.com/MaximKurbatov20212/DS/tree/master/task2/architecture/schema.png)
+![schema](./architecture/schema.png)
