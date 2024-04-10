@@ -23,7 +23,7 @@ public class CrackRequest {
   private CrackStatus status = CrackStatus.IN_PROGRESS;
 
   // количество воркеров, которые выполнили свою часть этой задачи
-  private final AtomicInteger acs = new AtomicInteger(0);
+  private final AtomicInteger readyWorkers = new AtomicInteger(0);
 
   // Множество слов, хеш которых совпал с нужным
   private final ArrayList<String> result = new ArrayList<>();
@@ -39,12 +39,12 @@ public class CrackRequest {
     this.expirationTime.add(Calendar.SECOND, timeoutSec);
   }
 
-  public int getAcs(){
-    return acs.get();
+  public int getReadyWorkers(){
+    return readyWorkers.get();
   }
 
-  public int increaseAcs(){
-    return acs.incrementAndGet();
+  public int increaseReadyWorkers(){
+    return readyWorkers.incrementAndGet();
   }
 
   public ArrayList<String> getResult() {

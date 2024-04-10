@@ -7,6 +7,6 @@ services:
     build: ./manager
     environment:
       - NUM_WORKERS=2
-      - TIMEOUT_HALF_MIL=15000
+      - TIMEOUT=10000
     ports:
       - "8080:8080"

@@ -25,7 +25,6 @@ import crackhash.worker.model.entities.CrackRequest;
 public class CrackRequestService implements ICrackRequestService {
   private final Character[] dict = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890".chars().mapToObj(i -> (char) i).toArray(Character[]::new);
   private final ExecutorService threadPool = Executors.newFixedThreadPool(1);
-
   private final Logger logger = Logger.getLogger("workerLogger");
 
   @Override
@@ -53,6 +52,7 @@ public class CrackRequestService implements ICrackRequestService {
       int startInd = partSize * (crackRequest.getPartNum() - 1);
       int endInd = partSize * (crackRequest.getPartNum());
 
+      // если количество задач не делится на количество воркеров, то в последний воркер добавим
       if (crackRequest.getPartTotal().equals(crackRequest.getPartNum())) {
         endInd += totalPerm % crackRequest.getPartTotal();
       }

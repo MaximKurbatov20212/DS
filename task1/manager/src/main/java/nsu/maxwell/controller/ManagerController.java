@@ -23,8 +23,8 @@ public class ManagerController {
   @Value("${numWorkers}")
   private Integer numWorkers;
 
-  @Value("${timeoutHalfMil}")
-  private Integer timeoutHalfMil;
+  @Value("${timeout}")
+  private Integer timeout;
 
   private final ConcurrentHashMap<Integer, CrackRequest> requests = new ConcurrentHashMap<>();
 
@@ -40,7 +40,7 @@ public class ManagerController {
     CrackRequest cr = new CrackRequest(
             request.hash(),
             request.maxLength(),
-            timeoutHalfMil / 500);
+            timeout / 1000);
 
     requests.put(cr.getId(), cr);
 
@@ -71,6 +71,7 @@ public class ManagerController {
   /**
    * Запрос статуса задачи. (ERROR, IN_PROGRESS, READY)
    * Может быть некорректный id
+   * GetStatusDto(String status, ArrayList<String> data)
   **/
   @GetMapping("/api/hash/status")
   public ResponseEntity<GetStatusDto> getRequest(@RequestParam Integer requestId) {
@@ -102,21 +103,22 @@ public class ManagerController {
       cr.addResult(pr.data());
 
       // количество воркеров, которые посчитали свою часть
-      cr.increaseAcs();
+      cr.increaseReadyWorkers();
 
-      if (cr.getAcs() == numWorkers) {
+      if (cr.getReadyWorkers() == numWorkers) {
         cr.setStatus(CrackRequest.CrackStatus.READY);
       }
-
     } catch (NullPointerException ignore) {}
   }
 
   /**
    *  Опрос задач, потенциальных для постановки в статус ERROR
-   *  Периодичность запроса задается параметром timeoutHalfMil
+   *  Периодичность запроса задается параметром timeout
   **/
-  @Scheduled(fixedRateString = "${timeoutHalfMil}")
+  @Scheduled(fixedRateString = "${timeout}")
   private void checkTimeouts(){
+    System.out.println("checkTimeout");
+
     Calendar curTime = Calendar.getInstance();
 
     for (var entry : requests.entrySet()){
