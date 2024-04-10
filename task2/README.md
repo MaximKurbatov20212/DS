@@ -33,7 +33,12 @@ RabbitMQ также необходимо разместить в окружен�
     - стоп воркера во время обработки задачи
     сообщение должно быть переотправлено другому воркеру, задача не должна быть потеряна
 ```
-
+# Стек
+- Java 21
+- Gradle
+- Spring Boot
+- RabbitMQ
+- MongoDB.
 
 # Запуск лабы
 
@@ -66,3 +71,7 @@ curl --location 'http://localhost:8080/api/hash/crack' \
 curl --location 'http://localhost:8080/api/hash/status?requestId=661611f7b1cfcd29a7fe67a0' \
 --header 'requestId: 0'
 ```
+
+# Схема 
+
+![schema](https://github.com/MaximKurbatov20212/DS/tree/master/task2/architecture/schema.png)
