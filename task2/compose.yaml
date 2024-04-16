@@ -61,6 +61,12 @@ services:
       - ./manager/src:/manager/src
     ports:
       - "8080:8080"
+  observer:
+    build: ./observer
+    environment:
+      - NUM_WORKERS=3
+      - TIMEOUT=${PING_TICK_MILLIS}
+
   rabbitmq:
     image: rabbitmq:management
     ports:

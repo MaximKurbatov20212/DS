@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import crackhash.manager.model.dtos.WorkerPingDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -109,5 +110,10 @@ public class ManagerController {
       .findById(requestId)
       .map(r -> new ResponseEntity<>(new GetStatusDto(r.getStatus().name(), r.getResult()), HttpStatus.OK))
       .orElse(new ResponseEntity<>(new GetStatusDto(RequestStatus.ERROR.name(), null), HttpStatus.OK));
+  }
+
+  @PostMapping("/api/manager/ping")
+  public ResponseEntity<WorkerPingDto> getPing() {
+    return new ResponseEntity<>(new WorkerPingDto(0), HttpStatus.OK);
   }
 }
